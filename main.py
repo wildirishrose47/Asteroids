@@ -35,6 +35,9 @@ def main():
 
     p = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    a_killed = 0
+    dt_passed = 0
+
     while True:
         log_state()
         for event in pygame.event.get():
@@ -45,6 +48,9 @@ def main():
             if asteroid.collides_with(p):
                 log_event("player_hit")
                 print("Game over!")
+                print(f"Time Alive: {dt_passed}")
+                score = (dt_passed // 100) + (a_killed * 5)
+                print(f"Your Score: {score}")
                 sys.exit()
         for asteroid in asteroids:
             for shot in shots:
@@ -52,12 +58,14 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+                    a_killed += 1
         screen.fill("black")
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
         tick = clock.tick(60)
         dt = tick / 1000
+        dt_passed += 1
 
 
 if __name__ == "__main__":
