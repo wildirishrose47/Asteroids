@@ -46,13 +46,16 @@ def main():
         updatable.update(dt)
         for asteroid in asteroids:
             if asteroid.collides_with(p):
-                score = (dt_passed // 100) + (a_killed * 5)
+                accuracy = a_killed / p.shots_fired
+                score = round(dt_passed / 100) + (a_killed * 3) + round(accuracy)
                 log_event("player_hit")
                 print("Game over!")
-                print(f"Time Alive: {dt_passed}")
-                print(f"Asteroids Shot: {a_killed}")
-                # print(f"Shots Fired: {shots_fired}")
                 print(f"Your Score: {score}")
+                # print(f"Seconds Alive: {dt_passed / 1000}")
+                print(
+                    f"Accuracy: {accuracy}   (Asteroids Shot: {a_killed},  Shots Fired: {p.shots_fired})"
+                )
+
                 sys.exit()
         for asteroid in asteroids:
             for shot in shots:
