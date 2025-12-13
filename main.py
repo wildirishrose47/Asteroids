@@ -12,7 +12,8 @@ from shot import Shot
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)
 
     print(f"Starting Asteroids with pygame version {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -53,7 +54,7 @@ def main():
                 print(f"Your Score: {score}")
                 # print(f"Seconds Alive: {dt_passed / 1000}")
                 print(
-                    f"Accuracy: {accuracy}   (Asteroids Shot: {a_killed},  Shots Fired: {p.shots_fired})"
+                    f"Accuracy: {accuracy}   (Asteroids Hit: {a_killed},  Shots Fired: {p.shots_fired})"
                 )
 
                 sys.exit()
@@ -64,7 +65,7 @@ def main():
                     asteroid.split()
                     shot.kill()
                     a_killed += 1
-        screen.fill("black")
+        screen.fill("purple")
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
