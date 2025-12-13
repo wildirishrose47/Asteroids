@@ -37,7 +37,6 @@ def main():
 
     a_killed = 0
     dt_passed = 0
-    # shots_fired = 0
 
     while True:
         log_state()
