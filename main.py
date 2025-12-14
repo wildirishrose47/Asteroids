@@ -48,11 +48,11 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(p):
                 accuracy = a_killed / p.shots_fired
-                score = round(dt_passed / 100) + (a_killed * 3) + round(accuracy)
+                score = (round(dt_passed / 100) + (a_killed * 3)) * (accuracy * 2)
                 log_event("player_hit")
                 print("Game over!")
                 print(f"Your Score: {score}")
-                # print(f"Seconds Alive: {dt_passed / 1000}")
+                print(f"Time Alive: {dt_passed / 100}")
                 print(
                     f"Accuracy: {accuracy}   (Asteroids Hit: {a_killed},  Shots Fired: {p.shots_fired})"
                 )
