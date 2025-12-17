@@ -4,7 +4,7 @@ import pygame
 
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+from constants import MAX_LIVES, SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_event, log_state
 from player import Player
 from shot import Shot
@@ -38,7 +38,6 @@ def main():
 
     a_killed = 0
     dt_passed = 0
-    lives = 2
 
     while True:
         log_state()
@@ -48,23 +47,20 @@ def main():
         updatable.update(dt)
         for asteroid in asteroids:
             if asteroid.collides_with(p):
-                if lives == 0:
-                    if p.shots_fired == 0:
-                        accuracy = 0
-                    else:
-                        accuracy = a_killed / p.shots_fired
-                    score = (round(dt_passed / 100) + (a_killed * 3)) * (accuracy * 2)
-                    log_event("player_hit")
-                    print("Game over!")
-                    print(f"Your Score: {score}")
-                    print(f"Time Alive: {dt_passed / 100}")
-                    print(
-                        f"Accuracy: {accuracy}   (Asteroids Hit: {a_killed},  Shots Fired: {p.shots_fired})"
-                    )
-
-                    sys.exit()
+                if p.shots_fired == 0:
+                    accuracy = 0
                 else:
-                    lives -= 1
+                    accuracy = a_killed / p.shots_fired
+                score = (round(dt_passed / 100) + (a_killed * 3)) * (accuracy * 2)
+                log_event("player_hit")
+                print("Game over!")
+                print(f"Your Score: {score}")
+                print(f"Time Alive: {dt_passed / 100}")
+                print(
+                    f"Accuracy: {accuracy}   (Asteroids Hit: {a_killed},  Shots Fired: {p.shots_fired})"
+                )
+
+                sys.exit()
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collides_with(asteroid):
