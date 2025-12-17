@@ -21,6 +21,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.shot_cooldown = 0
         self.shots_fired = 0
+        self.lives = 2
 
     # in the Player class
     def triangle(self):

@@ -4,7 +4,7 @@ import pygame
 
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from constants import *
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_event, log_state
 from player import Player
 from shot import Shot
@@ -12,8 +12,8 @@ from shot import Shot
 
 def main():
     pygame.init()
-    # screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)
 
     print(f"Starting Asteroids with pygame version {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -49,7 +49,10 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(p):
                 if lives == 0:
-                    accuracy = a_killed / p.shots_fired
+                    if p.shots_fired == 0:
+                        accuracy = 0
+                    else:
+                        accuracy = a_killed / p.shots_fired
                     score = (round(dt_passed / 100) + (a_killed * 3)) * (accuracy * 2)
                     log_event("player_hit")
                     print("Game over!")
@@ -60,7 +63,8 @@ def main():
                     )
 
                     sys.exit()
-                lives -= 1
+                else:
+                    lives -= 1
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collides_with(asteroid):
